@@ -95,29 +95,3 @@ Index: 2
 🔄 ARRAY MODIFIED: MODIFY at index 2 from 8 to 30 (now at index 5)
 (인덱스 2의 값이 8에서 30으로 변경되었고, 정렬로 인해 인덱스 5로 이동함)
 ```
-
-## 접근 방법/힌트
-
-1. **Binary Search 구현**: 표준 binary search와 첫 번째 occurrence를 찾는 변형 버전을 모두 구현하세요 (중복 처리용).
-
-2. **실시간 수정 처리**: 특히 Room 3에서는 배열이 자주 수정됩니다. 다음을 고려하세요:
-   - 수정사항 발생 시 tracking
-   - 로컬 배열 복사본에 수정사항 적용
-   - 각 쿼리마다 가장 최신 배열 상태 사용
-
-3. **효율성이 중요**: Room 3은 최대 10,000개 요소의 배열에서 100개의 쿼리를 처리해야 하므로, 효율적인 O(log n) binary search가 필수입니다.
-
-4. **Edge Cases**: 
-   - 빈 결과 (target not found)
-   - 중복 값 ("first occurrence" 쿼리의 경우)
-   - 배열 범위를 벗어난 값
-
-5. **네트워크 통신**: 적절한 socket handling과 data parsing을 보장하세요. 특히 여러 receive buffer에 걸쳐 있을 수 있는 큰 배열의 경우 주의가 필요합니다.
-
-## 태그/카테고리
-
-- **Algorithms**: Binary Search, Search Algorithms
-- **Data Structures**: Sorted Arrays
-- **Concepts**: Real-time Data Modification, Network Programming
-- **Difficulty**: Medium
-- **Skills**: Algorithm Implementation, Socket Programming, Concurrent Data Handling

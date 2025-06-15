@@ -41,7 +41,7 @@ WORKDIR /app
 COPY --chown=ctfuser:ctfuser pattern_server_async.py ./
 
 # Security: Set proper permissions
-RUN chmod 444 pattern_server_async.py
+RUN chmod 444 server.py
 
 # Environment variables with secure defaults
 ENV PYTHONUNBUFFERED=1 \

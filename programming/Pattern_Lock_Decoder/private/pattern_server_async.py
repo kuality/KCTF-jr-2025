@@ -368,7 +368,7 @@ Format your answer as a single integer (LCS length).
                 logger.error(f"❌ Could not bind to any port in range {self.port_range[0]}-{self.port_range[1]}")
                 logger.info("\nPossible solutions:")
                 logger.info("1. Kill the process using the port: kill <PID>")
-                logger.info("2. Use a different port: PORT=9005 python pattern_server_async.py")
+                logger.info("2. Use a different port: PORT=9005 python server.py")
                 logger.info("3. Wait for the port to become available")
                 raise RuntimeError("No available ports found")
 

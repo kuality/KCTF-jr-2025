@@ -11,8 +11,8 @@ __pycache__/
 .git/
 .gitignore
 .dockerignore
-Dockerfile*
-README*
+Dockerfile
+../public/README.md
 *.md
 .pytest_cache/
 .coverage
@@ -29,7 +29,7 @@ build/
 venv/
 ENV/
 env/
-solve.py
+solver/solve.py
 server.py
 *.log
 *.pid
