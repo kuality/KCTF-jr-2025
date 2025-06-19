@@ -39,8 +39,8 @@ class ProblemServer:
     # 방 설정
     ROOM_CONFIGS = {
         1: RoomConfig((10, 100), (1, 1000), 3, 3.0),
-        2: RoomConfig((100, 1000), (1, 10000), 4, 1.0),
-        3: RoomConfig((1000, 10000), (1, 100000), 100, 1.0)
+        2: RoomConfig((100, 1000), (1, 10000), 4, 3.0),
+        3: RoomConfig((1000, 10000), (1, 100000), 100, 3.0)
     }
 
     def __init__(self, host: str, port: int):
