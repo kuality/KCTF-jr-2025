@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class PatternServer:
     def __init__(self):
         self.host: str = os.environ.get('HOST', '0.0.0.0')
-        self.port: int = int(os.environ.get('PORT', '39991'))
+        self.port: int = int(os.environ.get('PORT', '10402'))
         self.flag: str = os.environ.get('FLAG', 'KCTF_Jr{1cs_p4tt3rn_m4st3r_2025}')
         self.dna_bases: str = 'ACGT'
         self.max_connections: int = 100

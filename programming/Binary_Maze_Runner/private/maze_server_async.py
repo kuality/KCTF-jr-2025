@@ -49,7 +49,7 @@ class MazeServer:
 
     def __init__(self):
         self.host: str = os.environ.get('HOST', '0.0.0.0')
-        self.port: int = int(os.environ.get('PORT', '39991'))
+        self.port: int = int(os.environ.get('PORT', '10401'))
         self.flag: str = os.environ.get('FLAG', 'KCTF_Jr{binary_search_speedrunner_2025}')
         self.active_connections: int = 0
         self.total_connections: int = 0

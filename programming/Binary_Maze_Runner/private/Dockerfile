@@ -45,7 +45,7 @@ RUN chmod 444 maze_server_async.py
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     HOST=0.0.0.0 \
-    PORT=39990 \
+    PORT=10401 \
     FLAG=KCTF_Jr{b1n4ry_s34rch_sp33drunner_2025}
 
 # Security: Drop all capabilities and run as non-root

@@ -60,7 +60,7 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["python", "pattern_server_async.py"]
 
 # Expose port (documentation only, doesn't open ports)
-EXPOSE 39991
+EXPOSE 10402
 
 # Security labels
 LABEL security.capabilities.drop="ALL" \

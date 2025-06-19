@@ -25,7 +25,7 @@ RUN useradd -m -u 1000 ctfuser && \
 USER ctfuser
 
 # Expose port
-EXPOSE 11000
+EXPOSE 10500
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

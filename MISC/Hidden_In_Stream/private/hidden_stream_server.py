@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 FLAG = os.getenv('FLAG', 'KCTF_Jr{test_flag_hidden_in_stream}')
-PORT = int(os.getenv('PORT', 11000))
+PORT = int(os.getenv('PORT', 10500))
 HOST = os.getenv('HOST', '0.0.0.0')
 
 TOTAL_BYTES = 100000  # 10만 바이트
