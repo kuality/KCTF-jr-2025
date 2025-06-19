@@ -1,37 +1,62 @@
-# Hidden In Stream
+# Hidden Stream Challenge
 
-## Description
-I have a server that sends exactly 100,000 bytes of data. Somewhere in this massive stream, I've hidden a flag. Can you find it?
+## 문제 설명
 
-The server might be a bit slow... but patience is a virtue, right?
+대용량 바이트 스트림 속에 숨겨진 플래그를 찾아내세요! 서버는 100,000 바이트의 랜덤 데이터를 전송하며, 이 중 어딘가에 플래그가 숨겨져 있습니다. 
 
-## Challenge Information
-- **Category**: Misc
-- **Points**: 200
-- **Author**: KUality
+플래그는 ASCII 문자, 확장 ASCII, 그리고 특수 문자들로 이루어진 노이즈 속에 숨겨져 있습니다. 효율적인 패턴 매칭과 데이터 처리 능력이 필요합니다.
 
-## Connection Info
+## 연결 정보
 ```bash
-nc [SERVER_IP] 11000
+nc [SERVER_IP] 10500
 ```
 
-## Hints
-1. The flag format is `KCTF_Jr{...}`
-2. You might want to capture all the output and search through it
-3. The flag is somewhere in the middle of the stream
+## 스트림 특성
 
-## Sample Interaction
+- 총 스트림 크기: 100,000 바이트
+- 플래그 위치: 20,000 ~ 80,000 바이트 사이 (랜덤)
+- 플래그 형식: `KCTF_Jr{...}`
+- 각 연결마다 플래그 위치가 다르게 설정됨
+
+## 스트림 구성
+
+스트림에는 다음과 같은 바이트들이 포함됩니다:
+- 출력 가능한 ASCII 문자 (0x20-0x7E)
+- 확장 ASCII 문자 (0x80-0xFF)
+- 특수 제어 문자 (0x00, 0x0A, 0x0D, 0x09)
+
+## 제약 사항
+
+- 연결 타임아웃: 30초
+- 버퍼 크기: 1024 바이트 단위로 전송
+- 플래그는 정확히 한 번만 나타남
+
+## 예제
+
+### 서버 응답 예시
 ```
-$ nc localhost 11000
 Welcome to Hidden Stream Challenge!
 I will send you 100,000 bytes... Can you find the hidden flag?
 Starting stream...
 
-[... lots of random bytes ...]
+[... 수많은 랜덤 바이트들 ...]
+... ÿ§¢ñ∂øΩ≈çKCTF_Jr{h1dd3n_1n_th3_str34m_2025}√∫˜µ≤≥÷ ...
+[... 더 많은 랜덤 바이트들 ...]
+
+[+] Stream complete! Did you find the flag?
 ```
 
-## Notes
-- The server sends one byte at a time
-- The total stream is exactly 100,000 bytes (excluding welcome/completion messages)
-- The flag appears as a continuous string somewhere in the stream
-- Be prepared to handle various types of bytes (printable and non-printable)
+## 힌트
+
+- 정규 표현식을 사용하여 플래그 패턴을 검색하세요
+- UTF-8 디코딩 에러를 적절히 처리해야 합니다
+- 원시 바이트와 디코딩된 텍스트 모두에서 검색을 시도하세요
+- 스트림이 크므로 효율적인 버퍼링이 중요합니다
+- `grep` 명령어도 유용할 수 있습니다: `grep -a 'KCTF_Jr{' stream_dump.bin`
+
+## 해결 전략
+
+1. 서버에 연결하여 전체 스트림을 수신
+2. 수신한 데이터에서 플래그 패턴 검색
+3. UTF-8 디코딩이 실패할 수 있으므로 에러 처리 필요
+4. 정규표현식 `KCTF_Jr\{[^}]+\}`로 플래그 추출
