@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 
 
 class PatternLockSolver:
-    def __init__(self, host='localhost', port=9003):
+    def __init__(self, host='localhost', port=39991):
         """Pattern Lock Decoder client initialization"""
         self.host = host
         self.port = port
@@ -17,6 +17,8 @@ class PatternLockSolver:
         """Connect to the server"""
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((self.host, self.port))
+        # Set socket timeout to prevent blocking
+        self.sock.settimeout(0.1)
         print(f"Connected to Pattern Lock Decoder server at {self.host}:{self.port}")
 
     def lcs_length_optimized(self, s1: str, s2: str) -> int:
@@ -53,9 +55,12 @@ class PatternLockSolver:
                     break
                 buffer += new_data
 
-                # Check if any pattern matches
+                # Clean buffer for pattern matching (remove timer updates)
+                clean_buffer = re.sub(r'\r⏰[^\n]*', '', buffer)
+                
+                # Check if any pattern matches in clean buffer
                 for pattern in patterns:
-                    if pattern in buffer:
+                    if pattern in clean_buffer:
                         return buffer
 
             except socket.timeout:
@@ -198,7 +203,7 @@ if __name__ == "__main__":
 
     # Command line arguments for host and port
     host = sys.argv[1] if len(sys.argv) > 1 else 'localhost'
-    port = int(sys.argv[2]) if len(sys.argv) > 2 else 9003
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 39991
 
     solver = PatternLockSolver(host=host, port=port)
     solver.solve()

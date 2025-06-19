@@ -8,7 +8,7 @@ import re
 import sys
 import time
 
-def solve(host='localhost', port=7777):
+def solve(host='localhost', port=11000):
     """Connect to server and find the hidden flag"""
     
     print(f"[*] Connecting to {host}:{port}")
@@ -79,7 +79,7 @@ def solve(host='localhost', port=7777):
         else:
             # Try searching in raw bytes
             print("[*] Searching in raw bytes...")
-            flag_bytes_pattern = b'KCTF_Jr{\{[^}]+\}'
+            flag_bytes_pattern = rb'KCTF_Jr\{[^}]+\}'
             raw_matches = re.findall(flag_bytes_pattern, received_data)
             
             if raw_matches:
@@ -114,7 +114,7 @@ def main():
         port = int(sys.argv[2])
     else:
         host = 'localhost'
-        port = 7777
+        port = 11000
     
     print("=== Hidden In Stream Solver ===")
     flag = solve(host, port)

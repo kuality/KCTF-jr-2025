@@ -25,11 +25,11 @@ RUN useradd -m -u 1000 ctfuser && \
 USER ctfuser
 
 # Expose port
-EXPOSE 7777
+EXPOSE 11000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD nc -z localhost 7777 || exit 1
+  CMD nc -z localhost 11000 || exit 1
 
 # Run the server
 CMD ["python", "-u", "hidden_stream_server.py"]

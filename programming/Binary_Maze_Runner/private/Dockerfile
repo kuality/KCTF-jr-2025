@@ -45,8 +45,8 @@ RUN chmod 444 maze_server_async.py
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     HOST=0.0.0.0 \
-    PORT=9004 \
-    FLAG=kctf-jr{quantum_search_master_2025}
+    PORT=39990 \
+    FLAG=KCTF_Jr{b1n4ry_s34rch_sp33drunner_2025}
 
 # Security: Drop all capabilities and run as non-root
 USER ctfuser
@@ -58,7 +58,7 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["python", "maze_server_async.py"]
 
 # Expose port (documentation only, doesn't open ports)
-EXPOSE 9004
+EXPOSE 39990
 
 # Security labels
 LABEL security.capabilities.drop="ALL" \

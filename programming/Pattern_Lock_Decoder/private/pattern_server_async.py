@@ -28,7 +28,6 @@ class PatternServer:
         self.active_connections: int = 0
         self.connection_semaphore: asyncio.Semaphore = asyncio.Semaphore(self.max_connections)
         self.server: Optional[asyncio.Server] = None
-        self.pid_file: str = '/tmp/pattern_server.pid'
         self.port_range: Tuple[int, int] = (9003, 9010)
 
     def initialize(self):
@@ -121,42 +120,6 @@ class PatternServer:
                         logger.warning(f"Port {port} is in use by PID: {pid}")
                 else:
                     logger.warning(f"Port {port} is in use by unknown process")
-
-        return None
-
-    def write_pid_file(self):
-        """Write current PID to file"""
-        try:
-            with open(self.pid_file, 'w') as f:
-                f.write(str(os.getpid()))
-            logger.debug(f"PID file written: {self.pid_file}")
-        except Exception as e:
-            logger.warning(f"Could not write PID file: {e}")
-
-    def remove_pid_file(self):
-        """Remove PID file"""
-        try:
-            if os.path.exists(self.pid_file):
-                os.remove(self.pid_file)
-                logger.debug(f"PID file removed: {self.pid_file}")
-        except Exception as e:
-            logger.warning(f"Could not remove PID file: {e}")
-
-    def check_existing_instance(self) -> Optional[int]:
-        """Check if another instance is already running"""
-        try:
-            if os.path.exists(self.pid_file):
-                with open(self.pid_file, 'r') as f:
-                    pid = int(f.read().strip())
-
-                # Check if process is still running
-                if psutil.pid_exists(pid):
-                    return pid
-                else:
-                    # Stale PID file, remove it
-                    self.remove_pid_file()
-        except Exception:
-            pass
 
         return None
 
@@ -345,12 +308,6 @@ Format your answer as a single integer (LCS length).
 
     async def listen_forever(self):
         """Start the server and listen for connections"""
-        # Check for existing instance
-        existing_pid = self.check_existing_instance()
-        if existing_pid:
-            logger.warning(f"Another instance may be running (PID: {existing_pid})")
-            logger.info("Use --force to override")
-
         # Try to bind to the preferred port first
         self.server = await self.start_server_on_port(self.port)
 
@@ -372,13 +329,9 @@ Format your answer as a single integer (LCS length).
                 logger.info("3. Wait for the port to become available")
                 raise RuntimeError("No available ports found")
 
-        # Write PID file
-        self.write_pid_file()
-
         addr = self.server.sockets[0].getsockname()
         logger.info(f"🚀 Pattern Lock Decoder server listening on {addr[0]}:{addr[1]}")
         logger.info(f"Maximum concurrent connections: {self.max_connections}")
-        logger.info(f"PID: {os.getpid()}")
 
         async with self.server:
             await self.server.serve_forever()
@@ -396,9 +349,6 @@ Format your answer as a single integer (LCS length).
         if self.server:
             self.server.close()
             await self.server.wait_closed()
-
-        # Remove PID file
-        self.remove_pid_file()
 
 
 async def main(args):
@@ -444,8 +394,6 @@ if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Pattern Lock Decoder CTF Server')
     parser.add_argument('--port', '-p', type=int, help='Port to bind to')
-    parser.add_argument('--force', '-f', action='store_true', 
-                        help='Force start even if another instance is running')
     args = parser.parse_args()
     
     try:

@@ -6,7 +6,7 @@ import threading
 
 
 class BinaryMazeSolver:
-    def __init__(self, host='localhost', port=9004):
+    def __init__(self, host='localhost', port=39990):
         """Binary Maze 서버 클라이언트 초기화"""
         self.host = host
         self.port = port
@@ -355,14 +355,14 @@ class BinaryMazeSolver:
                 print(f"\n✓ Room {room} cleared!")
 
             # 플래그 대기
-            buffer = self.wait_for_pattern(buffer, "kctf-jr{", timeout=10)
+            buffer = self.wait_for_pattern(buffer, "KCTF_Jr{", timeout=10)
 
             print(f"\n{'=' * 50}")
             print("SUCCESS!")
             print('=' * 50)
 
             # 플래그 추출
-            flag_match = re.search(r'(kctf-jr\{[^}]+})', buffer)
+            flag_match = re.search(r'(KCTF_Jr\{[^}]+})', buffer)
             if flag_match:
                 print(f"\n🎉 FLAG: {flag_match.group(1)} 🎉")
             else:
@@ -384,7 +384,7 @@ if __name__ == "__main__":
 
     # 명령줄 인자로 호스트와 포트 받기
     host = sys.argv[1] if len(sys.argv) > 1 else 'localhost'
-    port = int(sys.argv[2]) if len(sys.argv) > 2 else 9004
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 39990
 
     solver = BinaryMazeSolver(host=host, port=port)
     solver.solve()

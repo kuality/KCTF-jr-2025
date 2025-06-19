@@ -12,17 +12,17 @@ The server might be a bit slow... but patience is a virtue, right?
 
 ## Connection Info
 ```bash
-nc [SERVER_IP] 7777
+nc [SERVER_IP] 11000
 ```
 
 ## Hints
-1. The flag format is `kctf{...}`
+1. The flag format is `KCTF_Jr{...}`
 2. You might want to capture all the output and search through it
 3. The flag is somewhere in the middle of the stream
 
 ## Sample Interaction
 ```
-$ nc localhost 7777
+$ nc localhost 11000
 Welcome to Hidden Stream Challenge!
 I will send you 100,000 bytes... Can you find the hidden flag?
 Starting stream...
