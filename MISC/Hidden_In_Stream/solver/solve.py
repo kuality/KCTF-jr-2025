@@ -70,7 +70,7 @@ def solve(host='localhost', port=7777):
         full_text = ''.join(decoded_parts)
         
         # Search for flag pattern
-        flag_pattern = r'kctf\{[^}]+\}'
+        flag_pattern = r'KCTF_Jr\{[^}]+\}'
         matches = re.findall(flag_pattern, full_text)
         
         if matches:
@@ -79,7 +79,7 @@ def solve(host='localhost', port=7777):
         else:
             # Try searching in raw bytes
             print("[*] Searching in raw bytes...")
-            flag_bytes_pattern = b'kctf{[^}]+}'
+            flag_bytes_pattern = b'KCTF_Jr{\{[^}]+\}'
             raw_matches = re.findall(flag_bytes_pattern, received_data)
             
             if raw_matches:
@@ -123,7 +123,7 @@ def main():
         print(f"\n[+] SUCCESS: {flag}")
     else:
         print("\n[-] Failed to find flag")
-        print("[*] Try running: grep -a 'kctf{' stream_dump.bin")
+        print("[*] Try running: grep -a 'KCTF_Jr{' stream_dump.bin")
 
 if __name__ == "__main__":
     main()

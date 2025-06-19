@@ -41,14 +41,14 @@ WORKDIR /app
 COPY --chown=ctfuser:ctfuser pattern_server_async.py ./
 
 # Security: Set proper permissions
-RUN chmod 444 server.py
+RUN chmod 444 pattern_server_async.py
 
 # Environment variables with secure defaults
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     HOST=0.0.0.0 \
-    PORT=9003 \
-    FLAG=kctf-jr{advanced_dna_cryptanalyst_2025}
+    PORT=39991 \
+    FLAG=KCTF_Jr{1cs_p4tt3rn_m4st3r_2025}
 
 # Security: Drop all capabilities and run as non-root
 USER ctfuser
@@ -60,7 +60,7 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["python", "pattern_server_async.py"]
 
 # Expose port (documentation only, doesn't open ports)
-EXPOSE 9003
+EXPOSE 39991
 
 # Security labels
 LABEL security.capabilities.drop="ALL" \
