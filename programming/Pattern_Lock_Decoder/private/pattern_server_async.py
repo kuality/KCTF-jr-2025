@@ -94,12 +94,6 @@ Format your answer as a single integer (LCS length).
             writer.write(challenge.encode())
             await writer.drain()
 
-            # Start countdown timer
-            level_complete = asyncio.Event()
-            timer_task = asyncio.create_task(
-                self.countdown_timer(writer, self.TIME_LIMITS[level], level_complete)
-            )
-
             try:
                 # Wait for response with timeout
                 start_time = asyncio.get_event_loop().time()
@@ -108,11 +102,6 @@ Format your answer as a single integer (LCS length).
                     timeout=self.TIME_LIMITS[level]
                 )
                 elapsed_time = asyncio.get_event_loop().time() - start_time
-
-                # Signal timer task that level is complete
-                level_complete.set()
-                timer_task.cancel()
-                await asyncio.gather(timer_task, return_exceptions=True)
 
                 user_answer = int(response.strip())
 
@@ -135,9 +124,6 @@ Format your answer as a single integer (LCS length).
                     return
 
             except asyncio.TimeoutError:
-                level_complete.set()
-                timer_task.cancel()
-                await asyncio.gather(timer_task, return_exceptions=True)
                 writer.write(f"\n❌ TIME'S UP! No answer received within {self.TIME_LIMITS[level]} seconds!\n".encode())
                 await writer.drain()
                 logging.warning(f"Level {level}: Timeout")
@@ -145,9 +131,6 @@ Format your answer as a single integer (LCS length).
                 await writer.wait_closed()
                 return
             except ValueError:
-                level_complete.set()
-                timer_task.cancel()
-                await asyncio.gather(timer_task, return_exceptions=True)
                 writer.write("\n❌ Invalid input format!\n".encode())
                 await writer.drain()
                 logging.warning(f"Level {level}: Invalid input")
@@ -168,36 +151,6 @@ Format your answer as a single integer (LCS length).
         """Read a line from the reader"""
         data = await reader.readline()
         return data.decode()
-
-    async def countdown_timer(self, writer, time_limit: int, level_complete: asyncio.Event) -> bool:
-        """Send countdown updates to client"""
-        start_time = asyncio.get_event_loop().time()
-        last_update = start_time
-
-        try:
-            while asyncio.get_event_loop().time() - start_time < time_limit:
-                if level_complete.is_set():
-                    return True
-
-                current_time = asyncio.get_event_loop().time()
-                elapsed = current_time - start_time
-                remaining = time_limit - elapsed
-
-                # Send update every second
-                if current_time - last_update >= 1:
-                    try:
-                        writer.write(f"\r⏰ Time remaining: {int(remaining)} seconds...".encode())
-                        await writer.drain()
-                        last_update = current_time
-                    except Exception:
-                        break
-
-                await asyncio.sleep(0.1)
-
-        except asyncio.CancelledError:
-            pass
-
-        return False
 
     def generate_dna_sequence(self, length: int) -> str:
         """Generate random DNA sequence"""
