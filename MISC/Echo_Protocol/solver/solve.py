@@ -1,7 +1,8 @@
 import socket
 import time
+import sys
 
-HOST = "localhost"
+HOST = "localhost"  # 또는 원격 서버 IP
 PORT = 10123
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -25,17 +26,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             break
 
         buffer += recv
-        print(recv, end="")
+        print(recv, end="", flush=True)
 
         # 퀴즈 대기 메시지 감지
         if "What is the name of our club?" in buffer:
             quiz_prompt_detected = True
 
-        # 퀴즈 정답 보내는 시점: 프롬프트 등장까지 기다림
+        # 퀴즈 정답 보내는 시점: 프롬프트까지 확인 후 전송
         if quiz_prompt_detected and "> " in buffer:
             answer = "KUality\n"
-            print(f"{answer.strip()}")
-            time.sleep(0.3)  # 서버가 진짜 받기 직전 약간의 지연
+            print(f"{answer.strip()}", flush=True)
+            time.sleep(0.3)
             s.sendall(answer.encode())
             buffer = ""
             answered_quiz = True
@@ -45,7 +46,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if not answered_quiz and "> " in buffer:
             if echo_count < max_echo_before_quiz:
                 msg = "hello\n"
-                print(f"> {msg.strip()}")
+                print(f"{msg.strip()}", flush=True)
                 s.sendall(msg.encode())
                 echo_count += 1
                 buffer = ""
@@ -57,7 +58,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     recv = s.recv(1024).decode()
                     if not recv:
                         break
-                    print(recv, end="")
+                    print(recv, end="", flush=True)
                     if "[Session closed]" in recv:
                         break
             except (socket.timeout, ConnectionResetError):
