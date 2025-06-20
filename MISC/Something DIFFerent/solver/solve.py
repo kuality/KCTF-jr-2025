@@ -1,10 +1,10 @@
 import os
 
 base = os.path.dirname(__file__)
-file2_path = os.path.join(base, "../public/file2.txt")
-file3_path = os.path.join(base, "../public/file3.txt")
+file1_path = os.path.join(base, "../public/First.txt")
+file2_path = os.path.join(base, "../public/Second.txt")
 
-with open(file2_path, "rb") as f1, open(file3_path, "rb") as f2:
+with open(file1_path, "rb") as f1, open(file2_path, "rb") as f2:
     b1 = f1.read()
     b2 = f2.read()
 
