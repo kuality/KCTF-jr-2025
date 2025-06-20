@@ -34,12 +34,8 @@ def handle_client(conn, addr):
         # echo 출력
         conn.sendall(f"You said: {msg}\n".encode())
 
-        # 중간중간 줄 섞임 방지용 sleep
-        time.sleep(0.05)
-
         # 퀴즈 시작 조건
         if count == QUIZ_TRIGGER_COUNT:
-            time.sleep(1)
             conn.sendall(b"\n...Wait. Before we go on, answer this:\n")
             time.sleep(1)
             conn.sendall(b"What is the name of our club?\n")
