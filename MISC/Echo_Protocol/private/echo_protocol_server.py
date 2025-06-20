@@ -61,13 +61,16 @@ def handle_client(conn, addr):
 
             if answer.lower() == "kuality":
                 conn.sendall(b"Correct. You truly belong here.\n\n")
-                time.sleep(1)
                 conn.sendall(f"{FLAG}\n\n".encode())
+                time.sleep(2.0)
             else:
                 conn.sendall(b"Wrong. Maybe next time.\n\n")
 
             time.sleep(0.5)
-            conn.sendall(b"[Session closed]\n")
+            try:
+                conn.sendall(b"[Session closed]\n")
+            except BrokenPipeError:
+                pass
             time.sleep(0.5)
             break
 
