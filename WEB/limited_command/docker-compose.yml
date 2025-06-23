@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web-limit_command:
+    container_name: kctf_jr-web-limit_command
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: kctf_jr/web:limit_command
+    ports:
+      - "10202:80"

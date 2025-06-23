@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web-obfuscator:
+    container_name: kctf_jr-web-obfuscator
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: kctf_jr/web:obfuscator
+    ports:
+      - "10203:80"

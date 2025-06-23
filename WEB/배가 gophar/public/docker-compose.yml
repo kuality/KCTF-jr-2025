@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  web-gophar:
+    container_name: kctf_jr-web-gophar
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: kctf_jr/web:gophar
+    ports:
+      - "10201:80"
+    volumes:
+      - ./src:/var/www/html

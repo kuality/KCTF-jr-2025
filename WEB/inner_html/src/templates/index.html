@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>KUality - 동아리 소개</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 기본 리셋 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            position: relative;
+        }
+        /* 배경 애니메이션 */
+        .shimmer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4), transparent 60%),
+                        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.3), transparent 60%),
+                        linear-gradient(135deg, #e0c3fc, #8ec5fc);
+            animation: move 20s ease-in-out infinite alternate;
+            z-index: -3;
+        }
+        @keyframes move {
+            0% { transform: translate(0%, 0%) scale(1); }
+            50% { transform: translate(-30%, -20%) scale(1.1); }
+            100% { transform: translate(-50%, -40%) scale(1.2); }
+        }
+        /* 추가 도형 애니메이션 */
+        .shape { position: absolute; border-radius: 50%; opacity: 0.15; animation: float 15s ease-in-out infinite; }
+        .shape.circle1 { width: 120px; height: 120px; background: #f093fb; top: 10%; left: 15%; animation-delay: 0s; }
+        .shape.circle2 { width: 200px; height: 200px; background: #8ec5fc; top: 60%; left: 75%; animation-delay: 5s; }
+        .shape.line1 { width: 300px; height: 2px; background: #ffffff; top: 40%; left: -20%; transform: rotate(25deg); animation: slide 10s linear infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes slide { 0% { transform: translateX(0) rotate(25deg); } 100% { transform: translateX(150%) rotate(25deg); } }
+        /* 네비게이션 */
+        header {
+            position: relative; z-index: 2;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 1.8rem; font-weight: bold; color: #3a3a3a; }
+        nav a {
+            margin-left: 1rem; text-decoration: none;
+            color: #555; padding: 0.4rem 0.8rem; border-radius: 6px;
+            transition: background 0.3s;
+        }
+        nav a:hover { background: rgba(255,255,255,0.6); }
+        /* 메인 컨텐츠 */
+        .content {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 3rem 2rem;
+            max-width: 700px;
+            margin: 80px auto 100px;
+        }
+        .content h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #e0c3fc, #8ec5fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .content p {
+            font-size: 1.15rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        /* footer */
+        footer {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="shimmer-bg"></div>
+    <div class="shape circle1"></div>
+    <div class="shape circle2"></div>
+    <div class="shape line1"></div>
+    <header>
+        <div class="logo">KUality</div>
+        <nav>
+            <a href="/mypage">My Page</a>
+            <a href="/report">Report</a>
+            <a href="/hello">Hello</a>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>동아리 소개</h1>
+        <p>저희는 고려대학교 세종캠퍼스 인공지능사이버보안학과의 미래를 향해 나아가고 싶어, 다양한 계획을 기획하고 있습니다.</p>
+    </div>
+    <footer>&copy; 2025 KUality. All rights reserved.</footer>
+</body>
+</html>
