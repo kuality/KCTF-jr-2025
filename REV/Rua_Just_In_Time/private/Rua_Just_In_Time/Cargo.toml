@@ -1,0 +1,19 @@
+[package]
+name    = "Rua_Just_In_Time"
+version = "0.1.0"
+edition = "2021"
+build   = "build.rs"
+
+[dependencies]
+mlua        = { version = "0.10", features = ["luajit","vendored"] }
+lzma-rs     = "0.3"
+chacha20    = "0.9"
+sha2        = "0.10"
+hex         = "0.4"
+
+[build-dependencies]
+rand     = "0.8"
+hex      = "0.4"
+lzma-rs  = "0.3"
+chacha20 = "0.9"
+mlua     = { version = "0.10", features = ["luajit","vendored"] }
