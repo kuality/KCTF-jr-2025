@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web-inner_html:
+    container_name: kctf_jr-web-inner_html
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: kctf_jr/web:inner_html
+    ports:
+      - "10204:8080"

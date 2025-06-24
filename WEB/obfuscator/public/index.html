@@ -1,0 +1,17 @@
+<script>
+    (function(){
+        var parts = ['fr','omC','ha','rCo','de'];
+        var fn    = String[ parts[0] + parts[1] + parts[2] + parts[3] + parts[4] ];
+        
+        var enc_flag  = '286c346531376d3330336430376460306733676433663167346d346c306c3334342e271f0a1301161e';
+        
+        enc_flag
+            .match(/.{2}/g)
+            .reverse()
+            .map(function(h) {
+            return fn( parseInt(h, 16) ^ 0x55 );
+            })
+            .join('');
+        
+        })();
+</script>
