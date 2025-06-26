@@ -12,7 +12,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY ./flag /flag
+COPY ./flag.txt /flag.txt
 
 COPY ./src /var/www/html
 
