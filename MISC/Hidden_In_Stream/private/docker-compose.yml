@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  hidden_in_stream:
+    container_name: kctf-jr-misc-hidden_in_stream
+    image: kctf-jr/misc-hidden_in_stream:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "10500:10500"
