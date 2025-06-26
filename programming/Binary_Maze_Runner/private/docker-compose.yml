@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  binary_maze_runner:
+    container_name: kctf-jr-programming-binary_maze_runner
+    image: kctf-jr/programming-binary_maze_runner:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "10437:10437"

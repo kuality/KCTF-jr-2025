@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  pattern_lock_decoder:
+    container_name: kctf-jr-programming-pattern_lock_decoder
+    image: kctf-jr/programming-pattern_lock_decoder:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "10402:10402"
