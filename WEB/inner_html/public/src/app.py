@@ -2,7 +2,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import Chrome
 
 from flask import Flask, request, render_template
-import urllib
+from urllib.parse import quote
+import time
 import os
 
 app = Flask(__name__)
@@ -13,7 +14,7 @@ def read_url(url):
         options = Options()
 
         for _ in [
-            "headeless",
+            "headless",
             "window-size=1920x1080",
             "disable-gpu",
             "no-sandbox",
@@ -23,22 +24,24 @@ def read_url(url):
             options.add_argument(_)
 
         driver = Chrome(options=options)
-        driver.implicitly_wait(3)
-        driver.set_page_load_timeout(3)
+        driver.implicitly_wait(5)
+        driver.set_page_load_timeout(5)
 
         driver.get("http://127.0.0.1:8080")
         
-        print("[LOG] url : ", url)
         driver.get(url)
-    except Exception as e:
-        print(e)
+        app.logger.info(f"URL : {url}")
+        
+        time.sleep(2)
         driver.quit()
+        
+        return True
+    except Exception as e:
+        app.logger.info(f"error : {e}")
         return False
-    driver.quit()
-    return True
 
-def check_xss(detail):
-    url = f"http://127.0.0.1:8080/report?detail={urllib.parse.quote(detail)}"
+def request_report(msg):
+    url = f"http://127.0.0.1:8080/msg?msg={quote(msg)}"
     return read_url(url)
 
 @app.route('/')
@@ -51,8 +54,8 @@ def report():
         return render_template('report.html')
 
     elif request.method == 'POST':
-        url = request.args.get('url')
-        if not check_xss(url):
+        url = request.form.get('url', '')
+        if request_report(url):
             return render_template('report.html', msg='전달이 완료되었습니다!')
 
         return render_template('report.html', msg='실패했습니다. 입력 값을 다시 확인해주세요.')
@@ -60,15 +63,15 @@ def report():
 @app.route('/mypage', methods=["GET"])
 def mypage():
     if request.remote_addr == '127.0.0.1':
-        return render_template('mypage.html', message="KCTF_Jr{this_is_fake}")
+        return render_template('mypage.html', message="KCTF_Jr{this_is_fake_flag}")
 
     return render_template('mypage.html', message="Hello User!")
 
-@app.route('/hello', methods=["GET"])
+@app.route('/msg', methods=["GET"])
 def user():
     if request.args.get('msg', None):
-        return request.args.get('msg')
+        return render_template('msg.html', msg=request.args.get('msg'))
 
-    return 'hello!'
+    return render_template('msg.html', msg='/msg?msg=welcome')
 
-app.run(host='0.0.0.0', port=8080)
+app.run(host='0.0.0.0', port=8080, debug=True)

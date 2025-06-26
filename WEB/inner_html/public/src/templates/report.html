@@ -92,15 +92,19 @@
         <nav>
             <a href="/mypage">My Page</a>
             <a href="/report">Report</a>
+            <a href="/msg">msg</a>
         </nav>
     </header>
     <div class="content">
         <h1>Report</h1>
         <p class="guide">웹 사이트 URL을 입력하시면, 간단하게 상태를 안내해드립니다.</p>
         <form class="report-form" method="post" action="/report">
-            <input type="url" name="url" placeholder="URL을 입력하세요" required>
+            <input type="text" name="url" placeholder="URL을 입력하세요" required>
             <button type="submit">제출</button>
         </form>
+        {% if msg %}
+            {{ msg }}   
+        {% endif %}
     </div>
     <footer>&copy; 2025 KUality. All rights reserved.</footer>
 </body>
