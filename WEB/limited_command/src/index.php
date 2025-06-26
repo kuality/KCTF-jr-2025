@@ -1,5 +1,7 @@
 <?php
 
+highlight_file(__FILE__);
+
 if(!isset($_GET['url'])){
     die("empty url querystring");
 }
@@ -21,5 +23,3 @@ if (!$process->isSuccessful()) {
 }
 
 echo "<pre>" . $process->getOutput() . "</pre>";
-
-highlight_file(__FILE__);
