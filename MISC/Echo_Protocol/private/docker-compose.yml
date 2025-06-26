@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  echo_protocol:
+    container_name: kctf-jr-misc-echo_protocol
+    image: kctf-jr/misc-echo_protocol:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "10123:10123"
