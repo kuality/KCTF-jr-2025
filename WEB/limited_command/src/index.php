@@ -21,3 +21,5 @@ if (!$process->isSuccessful()) {
 }
 
 echo "<pre>" . $process->getOutput() . "</pre>";
+
+highlight_file(__FILE__);
