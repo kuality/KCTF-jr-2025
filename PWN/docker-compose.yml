@@ -4,24 +4,24 @@ services:
   cigaronne:
     container_name: kctf-jr-pwn-cigaronne
     build: ./cigaronne/private
-    image: kctf-jr/cigaronne:latest
+    image: kctf-jr/pwn-cigaronne:latest
     ports:
       - "10000:8080"
   rolex:
     container_name: kctf-jr-pwn-rolex
     build: ./rolex/private
-    image: kctf-jr/rolex:latest
+    image: kctf-jr/pwn-rolex:latest
     ports:
       - "10001:8080"
   shellcode-revenge:
     container_name: kctf-jr-pwn-shellcode-revenge
     build: ./shellcode-revenge/private
-    image: kctf-jr/shellcode-revenge:latest
+    image: kctf-jr/pwn-shellcode-revenge:latest
     ports:
       - "10002:8080"
   shinsaibashi:
     container_name: kctf-jr-pwn-shinsaibashi
     build: ./shinsaibashi/private
-    image: kctf-jr/shinsaibashi:latest
+    image: kctf-jr/pwn-shinsaibashi:latest
     ports:
       - "10003:8080"
