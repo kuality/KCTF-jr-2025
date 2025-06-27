@@ -21,4 +21,5 @@ WORKDIR /home/$user
 USER $user
 EXPOSE $chall_port
 
-CMD socat TCP-L:8080,reuseaddr,fork, EXEC:"./prob"
+CMD socat TCP-L:8080,reuseaddr,fork \
+          EXEC:"./prob",pty,stderr,raw,echo=0
