@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:  
+  cigaronne:
+    build: ./cigaronne/private
+    image: cigaronne:latest
+    ports:
+      - "10000:8080"
+  rolex:
+    build: ./rolex/private
+    image: rolex:latest
+    ports:
+      - "10001:8080"
+  shellcode-revenge:
+    build: ./shellcode-revenge/private
+    image: shellcode-revenge:latest
+    ports:
+      - "10002:8080"
+  shinsaibashi:
+    build: ./shinsaibashi/private
+    image: shinsaibashi:latest
+    ports:
+      - "10003:8080"
