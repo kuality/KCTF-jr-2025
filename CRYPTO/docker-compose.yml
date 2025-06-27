@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:  
+  lov3:
+    container_name: kctf-jr-crypto-lov3
+    build: ./LOV3/private
+    image: kctf-jr/crypto-lov3:latest
+    ports:
+      - "10403:8080"
